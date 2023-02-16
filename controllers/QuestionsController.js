@@ -86,7 +86,7 @@ module.exports.createOption = (req, res) => {
             question: question.id
         }, (err, option) => {
             if (err) { sendErrorResp("Error occured while creating option", err, res); return; }
-            option.link_to_vote = `${req.protocol}://${req.headers.host}/api/options/${option.id}/add_vote`;
+            option.link_to_vote = `${req.protocol}://${req.headers.host}/options/${option.id}/add_vote`;
             option.save();
             question.options.push(option);
             question.save();

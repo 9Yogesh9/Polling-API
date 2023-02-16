@@ -1,0 +1,76 @@
+﻿Polling System API
+TIME: 5 hours
+
+Let’s make a polling system, only API based. [Good Enough Completion Time: 3 hours + 1 hour for finalizing things]
+
+* Write the server application in Node.js and a Database of your choice Only the API needs to be designed
+* Feel free to use any libraries (you should be very clear on how it works conceptually)
+
+Extra Points:
+* Well commented code 
+* Readme on how to setup the project on local system
+* Scaleable folder structure (separate models, controllers and routes)
+
+Task
+* You need to create an API where anyone can create questions with options and also add votes to it
+* Authentication/User identity is not needed, this is going to be a completely open application, however if you want to and think there’s extra time, you can create authentication
+* Features
+   * Create a question (you can add as many questions as you want)
+   * Add options to a question
+   * Add a vote to an option of question
+   * Delete a question → (optional: A question can’t be deleted if one of it’s options has votes)
+   * Delete an option → (optional: An option can’t be deleted if it has even one vote given to it)
+   * View a question with it’s options and all the votes given to it
+* Required Routes (Remember, in a real test, you won’t be given routes mostly)
+   
+   * /questions/:id (To view a question and it’s options)
+   * /questions/create  (To create a question)
+   * /questions/:id/options/create  (To add options to a specific question)
+   * /questions/:id/delete (To delete a question)
+   
+   * /options/:id/delete (To delete an option)
+   * /options/:id/add_vote (To increment the count of votes)
+      * The API will look like this (Pay close attention to the link_to_vote, because that’s tricky part, you’ll need to insert it dynamically):
+{
+        id: 1,
+     title: “Who is your favorite from the Ninjas Mentors”,
+      options: [
+        { 
+            id: 1,
+            text: “Aakash Tyagi”,
+            votes: 100,
+            link_to_vote: “http://localhost:8000/options/1/add_vote”,
+        },
+        { 
+            id: 2,
+            text: “Parikh Jain”,
+            votes: 101,
+            link_to_vote: “http://localhost:8000/options/2/add_vote”,
+        },
+        { 
+            id: 3,
+            text: “Ankush Singla”,
+            votes: 102,
+            link_to_vote: “http://localhost:8000/options/3/add_vote”,
+        },
+        { 
+            id: 4,
+            text: “Nidhi”,
+            votes: 110,
+            link_to_vote: “http://localhost:8000/options/3/add_vote”,
+        }
+    ]
+}
+
+* Decide the schemas and fields on your own, smartly
+
+Free Hints
+* USE PEN AND PAPER TO CREATE SCHEMAS BEFORE WRITING CODE 
+* WORK ON ONE API AT A TIME (in the order they are mentioned, DON’T THINK ABOUT THE COMPLETE APP TOGETHER
+
+To Submit:
+* Record a video (max 3 minutes) with the following details (and upload it to drive/youtube with public access, VIDEO SHOULD BE ACCESSIBLE BY ANYONE):
+   * Explain through the folder structure (what is placed where and why)
+   * Explain the running code using Postman
+* Upload the project files on github.com 
+* SUBMISSIONS WITHOUT VIDEO WILL NOT BE EVALUATED

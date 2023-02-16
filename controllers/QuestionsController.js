@@ -1,6 +1,7 @@
 const Questions = require('../models/questions');
 const Options = require('../models/options');
 
+// An Extra API to help with the relevant IDs of questions and there options in database
 module.exports.getAll = (req, res) => {
     Questions.find({}, (err, questions) => {
         if (err) { sendErrorResp("Error occured while getting all question", err, res); return; }
@@ -8,6 +9,7 @@ module.exports.getAll = (req, res) => {
     });
 }
 
+// Fetch the question and its options using ID from the database
 module.exports.get = async (req, res) => {
     try {
         let question = await Questions.findById(req.params.id).populate('options');
@@ -27,9 +29,12 @@ module.exports.get = async (req, res) => {
             }
 
             sendSuccessResp("Your Question is ", details, res);
+
         } else {
+
             sendErrorResp("Please check the id, unable to find the question !", err, res);
             return;
+            
         }
 
     } catch (err) {
@@ -38,6 +43,7 @@ module.exports.get = async (req, res) => {
     }
 }
 
+// Create the new question in the database
 module.exports.create = (req, res) => {
     Questions.create({
         title: req.body.title
@@ -47,6 +53,7 @@ module.exports.create = (req, res) => {
     });
 }
 
+// Delete existing question and its options (if all options have zero vote) from the database
 module.exports.delete = async (req, res) => {
     let question = await Questions.findById(req.params.id).populate("options");
 
@@ -67,6 +74,7 @@ module.exports.delete = async (req, res) => {
 
 }
 
+// Create an option for a question
 module.exports.createOption = (req, res) => {
 
     Questions.findById(req.params.id, (err, question) => {
@@ -88,11 +96,13 @@ module.exports.createOption = (req, res) => {
     })
 }
 
+// Generic error function : Sends error response
 function sendErrorResp(msg, err, res) {
     console.log(`${msg} : ${err}`);
     res.status(501).send(`Error Message :  ${msg}`);
 }
 
+// Generic success function : Sends success response
 function sendSuccessResp(msg, response, res) {
     res.status(200).send({ msg, response });
 }

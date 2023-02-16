@@ -123,7 +123,7 @@
         "question": "63ee699641cd1a4861adf518",
         "text": "Option 1",
         "votes": 0,
-        "link_to_vote": "http://localhost:8000/api/options/63ee6a8841cd1a4861adf51b/add_vote",
+        "link_to_vote": "http://localhost:8000/options/63ee6a8841cd1a4861adf51b/add_vote",
         "_id": "63ee6a8841cd1a4861adf51b",
         "createdAt": "2023-02-16T17:40:24.177Z",
         "updatedAt": "2023-02-16T17:40:24.177Z",

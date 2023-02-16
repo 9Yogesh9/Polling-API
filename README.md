@@ -53,7 +53,7 @@
 
 </ol>
 
-<p>Hosted URL : <code></code>(If you want to test it through hosted server/Ready to test, no need to install anything)</p>
+<p>Hosted URL : <code>https://polling-api-26u3.onrender.com</code>(If you want to test it through hosted server/Ready to test, no need to install anything)</p>
 <p>Locally hosted server : <code>http://localhost:8000/</code>(If you want to test it on your system after completing the below mentioned setup.)</p>
 
 <h2>Prerequisites:</h2>

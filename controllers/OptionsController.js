@@ -22,9 +22,9 @@ module.exports.delete = async (req, res) => {
             return;
         }
 
+        await Questions.findByIdAndUpdate(option.question, { $pull: { options: req.params.id } });
         option.remove();
 
-        await Questions.findByIdAndUpdate(option.question, { $pull: { options: req.params.id } });
         sendSuccessResp("Successfully deleted the option !", option, res);
 
     } else {

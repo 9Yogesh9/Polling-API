@@ -34,7 +34,7 @@ module.exports.get = async (req, res) => {
 
             sendErrorResp("Please check the id, unable to find the question !", err, res);
             return;
-            
+
         }
 
     } catch (err) {
@@ -48,7 +48,7 @@ module.exports.create = (req, res) => {
     Questions.create({
         title: req.body.title
     }, (err, question) => {
-        if (err) { sendErrorResp("Error occured while creating question", err, res); return; }
+        if (err) { sendErrorResp("Error occured while creating question, please check the form parameters (title) are correctly provided !", err, res); return; }
         sendSuccessResp("Question Created !", question, res);
     });
 }
@@ -56,21 +56,25 @@ module.exports.create = (req, res) => {
 // Delete existing question and its options (if all options have zero vote) from the database
 module.exports.delete = async (req, res) => {
     let question = await Questions.findById(req.params.id).populate("options");
+    if (question) {
 
-    for (a of question.options) {
-        if (a.votes > 1) {
-            sendErrorResp("The question can't be deleted as one of the options is having atleast one vote", "QUE IS NOT DELETED", res);
-            return;
+        for (a of question.options) {
+            if (a.votes > 1) {
+                sendErrorResp("The question can't be deleted as one of the options is having atleast one vote", "QUE IS NOT DELETED", res);
+                return;
+            }
         }
+
+        question.remove();
+        await Options.deleteMany({ question: req.params.id });
+
+        sendSuccessResp("Question and relevant options are deleted successfully !", "", res);
+    
+    } else {
+
+        sendErrorResp("Please select correct question id : Unable to find the question", "", res);
+
     }
-
-    Options.deleteMany({ question: question.id });
-
-    Questions.findByIdAndDelete(req.params.id, (err) => {
-        if (err) { sendErrorResp("Error occured while deleting question", err, res); return; }
-    });
-
-    sendSuccessResp("Question and relevant options are deleted successfully !", "", res);
 
 }
 

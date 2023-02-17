@@ -59,7 +59,7 @@ module.exports.delete = async (req, res) => {
     if (question) {
 
         for (a of question.options) {
-            if (a.votes > 1) {
+            if (a.votes > 0) {
                 sendErrorResp("The question can't be deleted as one of the options is having atleast one vote", "QUE IS NOT DELETED", res);
                 return;
             }
